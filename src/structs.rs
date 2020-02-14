@@ -259,11 +259,11 @@ mod tests {
     fn bench_par_new_with_file_small_file(b: &mut Bencher) {
         b.iter(|| Image::new_with_file(Path::new("mandelbrot.ppm")))
     }
-    /*
+    
     #[bench]
     fn bench_new_with_file_large_file(b: &mut Bencher) {
         b.iter(|| Image::new_with_file(Path::new("big_mandelbrot.ppm")))
-    }*/
+    }
 
     #[test]
     fn test_create_Pixel() {
