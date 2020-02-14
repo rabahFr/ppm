@@ -8,13 +8,20 @@ use std::iter::Iterator;
 use std::io::Write;
 
 #[derive(Clone, Debug, Copy)]
+///a struct that represents a pixel following the ppm format
 pub struct Pixel {
     red : u8,
     blue: u8,
     green: u8,
 }
 
+///implementation of the pixel structure
 impl Pixel {
+    ///builds three values and builds pixel
+    /// # Arguments
+    /// * 'red' - an u8 value representing the red color
+    /// * 'blue' - an u8 value representing the blue color
+    /// * 'green' - an u8 value representing the green color
     pub fn new(red: u8, blue: u8, green: u8) -> Pixel{
         Pixel{
             red: red,
@@ -23,16 +30,19 @@ impl Pixel {
         }
     }
 
+    ///builds a String with the different values of the pixel 
     pub fn display(&self)-> String{
         return format!("{} {} {} ", self.red, self.blue,self.green);
     }
 
+    ///invert the pixel
     pub fn invert(&mut self) {
         self.red = 255 - &self.red;
         self.blue = 255 - &self.blue;
         self.green =  255 - &self.green;
     }
 
+    ///makes the pixel gray using the average of its values
     pub fn grey(&mut self){
         let average : u8 = (&self.red + &self.blue + &self.green)/3;
         self.red = average;
@@ -41,13 +51,19 @@ impl Pixel {
     }
 }
 
+///a struct that represents an Image
 pub struct Image {
     width: usize,
     height: usize,
     pixels: Vec<Pixel>,
 }
 
+///implementation of the Image structure
 impl Image {
+    ///Initialize the image with it height and width and an empty vector
+    /// # Arguments
+    /// * 'h' - an u8 value representing the height 
+    /// * 'w' - an u8 value representing the width
     pub fn new(h : &usize, w : &usize)-> Image {
         return Image {
                 width : *h,
@@ -56,6 +72,9 @@ impl Image {
         }
     }
 
+    ///Initialize the image with it height and width and a vector containing the pixels
+    /// # Arguments
+    /// * 'filename' - a Path to the file 
     pub fn new_with_file(filename: &Path) -> Image {
         if filename.is_file() && filename.extension().unwrap()=="ppm" {
             return read_file(&filename)
@@ -65,7 +84,10 @@ impl Image {
         }
     }
 
-
+    ///Saves the image on disk
+    /// # Arguments
+    /// * 'img' - the Image to save
+    ///  * 'filename' - path to where the image is saved
     pub fn save(img: Image, filename: &Path) {
         if filename.extension().unwrap()!="ppm" {
             panic!("Wrong extension for the file !");
@@ -74,23 +96,30 @@ impl Image {
         println!("Successfully saved");
     }
 
+    ///Gets a pixel given a location in the vector
+    /// # Arguments
+    /// * 'x' - x coordinate in matrix
+    ///  * 'y' - y coordinate in matrix
     pub fn get_pixel(&self, x : usize, y : usize) -> Pixel {
         let index : usize = self.width*x+y;
         return self.pixels[index];
     }
 
+    ///Makes the image grey, using the Pixel function
     pub fn grey_image(&mut self){
         for x in 0..self.pixels.len(){
             self.pixels[x].grey();
         }
     }
     
+    ///Inverts the image, using the Pixel function
     pub fn invert(&mut self){
         for x in 0..self.pixels.len(){
             self.pixels[x].invert();
         }
     }
     
+    /// prints the mage
     pub fn to_string(&self){
         for i in 0..self.height{
             for j in 0..self.width{
@@ -101,6 +130,10 @@ impl Image {
     }
 }
 
+    ///Gets a pixel given a location in the vector
+    /// # Arguments
+    /// * 'x' - x coordinate in matrix
+    ///  * 'y' - y coordinate in matrix
 fn get_char_at_index(my_string : &String, index :usize) -> char{
     match my_string.chars().nth(index) {
         Some(c) => return c,
@@ -108,6 +141,9 @@ fn get_char_at_index(my_string : &String, index :usize) -> char{
     }
 }
 
+///read an image from file
+/// # Arguments
+/// * 'filename' - a path to the image
 pub fn read_file(filename: &Path) -> Image {
         
     let mut file = match File::open(&filename) {
@@ -186,6 +222,10 @@ pub fn read_file(filename: &Path) -> Image {
     return img;
 }
 
+///read an image from file
+/// # Arguments
+/// * 'filename' - a path to the image
+/// * 'img' - the image to save
 pub fn save_file(img: Image, filename: &Path) {
     let format : String = String::from("P3 \n");
     let dimension : String = format!("{} {} \n", &img.width, &img.height);
