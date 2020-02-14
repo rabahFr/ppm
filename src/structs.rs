@@ -64,10 +64,10 @@ impl Image {
     /// # Arguments
     /// * 'h' - an u8 value representing the height 
     /// * 'w' - an u8 value representing the width
-    pub fn new(h : &usize, w : &usize)-> Image {
+    pub fn new(h : usize, w : usize)-> Image {
         return Image {
-                width : *h,
-                height : *w,
+                width : h,
+                height : w,
                 pixels : Vec::new()
         }
     }
@@ -119,7 +119,7 @@ impl Image {
         }
     }
     
-    /// prints the mage
+    /// Prints the image
     pub fn to_string(&self){
         for i in 0..self.height{
             for j in 0..self.width{
@@ -259,9 +259,26 @@ mod tests {
     fn bench_par_new_with_file_small_file(b: &mut Bencher) {
         b.iter(|| Image::new_with_file(Path::new("mandelbrot.ppm")))
     }
-
+    /*
     #[bench]
     fn bench_new_with_file_large_file(b: &mut Bencher) {
         b.iter(|| Image::new_with_file(Path::new("big_mandelbrot.ppm")))
+    }*/
+
+    #[test]
+    fn test_create_Pixel() {
+        let pixel = Pixel::new(245, 67, 98);
+        assert!(pixel.red == 245);
+        assert!(pixel.blue == 67);
+        assert!(pixel.green == 98);
+    }
+
+    #[test]
+    fn test_invert_Pixel() {
+        let mut pixel = Pixel::new(245, 67, 98);
+        pixel.invert();
+        assert!(pixel.red == 10);
+        assert!(pixel.blue == 188);
+        assert!(pixel.green == 157);
     }
 }
