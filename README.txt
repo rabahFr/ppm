@@ -1,9 +1,14 @@
-Le groupe 5 est composÈ des membres suivants:
+Le groupe 5 est compos√© des membres suivants:
 Rabah Oumessaoud
 Gautier Malonga-Nkou
 Jules Graih-Lama
 Aymen Chabchoub
 
-Il a pour vocation, le dÈveloppement d'une librairie pour faciliter l'usage du format image PPM.
-Ceci dans le cadre d'un projet pÈdagogique, pour l'UE de programmation Rust, and 4Ëme annÈe Big Data et IA.
+Il a pour vocation, le d√©veloppement d'une librairie pour faciliter l'usage du format image PPM.
+Ceci dans le cadre d'un projet p√©dagogique, pour l'UE de programmation Rust, and 4√®me ann√©e Big Data et IA.
 
+La librairie permet de lire des fichiers PPM sous format P3 les sauvegarder sur disque et effectuer diff√©rentes op√©rations sur celles ci:
+-Inverser l'image.
+-Transformer l'image en nuances de gris
+
+La librairie sera port√© sur Python, incessamment sous peu.
