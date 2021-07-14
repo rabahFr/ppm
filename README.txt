@@ -15,4 +15,3 @@ La librairie permet de lire des fichiers PPM sous format P3 les sauvegarder sur 
 -lancer le chargement et traitement d'image: "Cargo +nightly 'path/to/img'" 
 -lancer le mode menu basique: "Cargo +nightly run"
 -lancer test/bench: "Cargo +nightly "test OU bench"
-La librairie sera portée sur Python, incessamment sous peu.
